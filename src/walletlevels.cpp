@@ -105,10 +105,55 @@ WalletLevel WalletLevels::GetWalletLevel2(CTxDestination address)
 	
 	return Standard;
 }
+WalletLevel WalletLevels::GetWalletLevel3(CTxDestination address)
+{
+	//Platinum wallet list // New addresses from vegas 15-07-2016
+	std::map<CTxDestination, std::string> platinumList = boost::assign::map_list_of
+	(CTxDestination(CBitcoinAddress("xRNNPzY5BnNTpiPvRK3Zs1jbYyWwpNzriw").Get()), "Community_Platinum1");	
+	// xRNNPzY5BnNTpiPvRK3Zs1jbYyWwpNzriw Wallet for community
+ 
+	if (platinumList.count(address))
+		return Platinum;
+	/* 
+	//Gold wallet list 
+	std::map<CTxDestination, std::string> goldList = boost::assign::map_list_of
+	(CTxDestination(CBitcoinAddress("xW8n21Fk5EdUQvganihZAWbrzESew1SkS7").Get()), "Gold1")
+	(CTxDestination(CBitcoinAddress("xL9DkSheLbg2w1wxa9yxMhnmhvcYYko4Vd").Get()), "Gold2")
+	(CTxDestination(CBitcoinAddress("xHaCssNKbRvRAdf74zw8MYtrr4guGh4i3J").Get()), "Gold3")
+	(CTxDestination(CBitcoinAddress("xBQ5VwuZpxgBTPuPomBEGkiJLaMaRRFHv3").Get()), "Gold4")
+	(CTxDestination(CBitcoinAddress("xLmNY5LL8ezcuUw6njZGpAic6kVSYvSXsT").Get()), "Gold5");
+	
+	if (goldList.count(address))
+		return Gold;
+
+	//Silver wallet list 
+	std::map<CTxDestination, std::string> silverList = boost::assign::map_list_of
+	(CTxDestination(CBitcoinAddress("x8tf4nhfv9LPUjZ2ogbojU6dT74UmZXyL7").Get()), "Silver1")
+	(CTxDestination(CBitcoinAddress("xS25MtTrVq4UENPun53k9op4occyZGSksH").Get()), "Silver2")
+	(CTxDestination(CBitcoinAddress("x93PtgiyVJ9HXxkR6qgK22LDCT9o6PFvfX").Get()), "Silver3")
+	(CTxDestination(CBitcoinAddress("xAR1MuKJ1CS5mzw8mxeQVdTh7URqBK93ws").Get()), "Silver4")
+	(CTxDestination(CBitcoinAddress("xKgXtWZTZx5GKyQQZNm8K1rMgwQ7MaQDuU").Get()), "Silver5")
+	(CTxDestination(CBitcoinAddress("xQYAiPPcr9Ec7pMCQsa2YtFPo3FcuRo7rj").Get()), "Silver6")
+	(CTxDestination(CBitcoinAddress("xTqsA675w2f6ybR1ExCbni61CqKfGGdK87").Get()), "Silver7")
+	(CTxDestination(CBitcoinAddress("xEjtm19n8oLDfXqUwmVLYoeXBe2TJXXQPw").Get()), "Silver8")
+	(CTxDestination(CBitcoinAddress("xWhg4kHaocvdEGauUyTJ3atxjeMYdxXz1y").Get()), "Silver9")
+	(CTxDestination(CBitcoinAddress("xVEMq89PH3jXuGtAZ5acbFtw9goRE9SvhE").Get()), "Silver10");	
+	
+	if (silverList.count(address))
+		return Silver;	
+	*/
+	return Standard;
+}
  
 // 39orebla: GetStakeInterest does need to know block height due to the PoS reward change
 int64_t WalletLevels::GetStakeInterest(CTxDestination address, int height)
 {
+	if (height >= FORK_HEIGHT_7)
+	      return GetStakeInterestV7(address, height);
+	
+	if (height >= FORK_HEIGHT_6)
+	      return GetStakeInterestV5(address, height);
+	
 	if (height >= FORK_HEIGHT_5)
 		return GetStakeInterestV4(address, height);
 	
@@ -187,4 +232,40 @@ int64_t WalletLevels::GetStakeInterestV4(CTxDestination address, int height)
             return 10 * COIN; // Standard 100% annual interest
 		
 	}
+}
+int64_t WalletLevels::GetStakeInterestV5(CTxDestination address, int height)
+{
+    WalletLevel walletLevel = GetWalletLevel2(address);
+
+    switch(walletLevel)
+    {
+
+        case Platinum:
+            return 12 * COIN; 	// Platinum 120% annual interest
+        case Gold:
+            return 9 * COIN; // Gold 90% annual interest
+        case Silver:
+            return 6 * COIN; // Silver 60% annual interest
+        default:
+            return 2 * COIN; // Standard 20% annual interest
+
+    }
+}
+int64_t WalletLevels::GetStakeInterestV7(CTxDestination address, int height)
+{
+    WalletLevel walletLevel = GetWalletLevel3(address);
+
+    switch(walletLevel)
+    {
+
+        case Platinum:
+            return 20 * COIN; 	// Platinum 200% annual interest
+        case Gold:
+            return 9 * COIN; // Gold 90% annual interest
+        case Silver:
+            return 6 * COIN; // Silver 60% annual interest
+        default:
+            return 2 * COIN; // Standard 20% annual interest
+
+    }
 }
