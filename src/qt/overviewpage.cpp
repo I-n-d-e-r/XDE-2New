@@ -13,8 +13,10 @@
 #include <QAbstractItemDelegate>
 #include <QPainter>
 
-#define DECORATION_SIZE 65
-#define NUM_ITEMS 6
+#define DECORATION_SIZE 95 //65
+#define DECORATION_SIZE2 150
+#define DECORATION_SIZE3 90 //Abstand
+#define NUM_ITEMS 5
 
 class TxViewDelegate : public QAbstractItemDelegate
 {
@@ -34,8 +36,8 @@ public:
         QRect mainRect = option.rect;
         mainRect.setWidth(300);
         QRect decorationRect(mainRect.topLeft(), QSize(DECORATION_SIZE, DECORATION_SIZE));
-        int xspace = DECORATION_SIZE + 8;
-        int ypad = 8;
+        int xspace = DECORATION_SIZE + 8;  // int xspace = DECORATION_SIZE + 8;
+        int ypad = 8; //int ypad = 8;
         int halfheight = (mainRect.height() - 2*ypad)/1.5;
         QRect amountRect(mainRect.left() + xspace, mainRect.top()+ypad, mainRect.width() - xspace, halfheight);
         QRect addressRect(mainRect.left() + xspace, mainRect.top()+ypad+halfheight, mainRect.width() - xspace, halfheight);
@@ -83,7 +85,7 @@ public:
 
     inline QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
     {
-        return QSize(DECORATION_SIZE, DECORATION_SIZE);
+        return QSize(DECORATION_SIZE3, DECORATION_SIZE3);
     }
 
     int unit;

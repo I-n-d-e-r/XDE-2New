@@ -80,7 +80,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     rpcConsole(0)
 {
      //Mac OSX GUI Qt Wallet Fixed    
-    setFixedSize(1280, 768);
+    setFixedSize(1280, 800);
     setWindowTitle(tr("XDE2Coin") + " - " + tr("Wallet") + " | " + tr("Anon"));
     setContentsMargins(24, 20, 0, 0);
 	
@@ -144,11 +144,11 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     // Status bar notification icons
     QFrame *frameBlocks = new QFrame();
     frameBlocks->setContentsMargins(0,0,0,0);  // Vorher 0,0,0,0
-    frameBlocks->setMinimumWidth(100);
-    frameBlocks->setMaximumWidth(100);
+    frameBlocks->setMinimumWidth(150); //100
+    frameBlocks->setMaximumWidth(150); // 100
 
     QVBoxLayout *frameBlocksLayout = new QVBoxLayout(frameBlocks);
-    frameBlocksLayout->setContentsMargins(35,0,0,0); //28  Linie für Toolbaar (Senden Schloss Icon)
+    frameBlocksLayout->setContentsMargins(44,10,0,0); //28  Linie für Toolbaar (Senden Schloss Icon) 35 //44=horizontal
     frameBlocksLayout->setSpacing(-1);
     labelEncryptionIcon = new QLabel();
     labelStakingIcon = new QLabel();
@@ -195,7 +195,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     toolbar2->setOrientation(Qt::Vertical);
     toolbar2->setMovable( false );
     toolbar2->setObjectName("toolbar2");
-    toolbar2->setFixedWidth(150);  // Für Balance alt 88
+    toolbar2->setFixedWidth(165);  // Für Balance alt 88  -150
     toolbar2->addWidget(frameBlocks);
     toolbar2->addWidget(progressBarLabel);
     toolbar2->addWidget(progressBar);
@@ -405,9 +405,9 @@ void BitcoinGUI::createToolBars()
     toolbar->setMovable(false);
     toolbar->setToolButtonStyle(Qt::ToolButtonIconOnly);
 #ifdef Q_OS_MAC
-    toolbar->setFixedWidth(130);
+    toolbar->setFixedWidth(200);
 #endif        
-    toolbar->setIconSize(QSize(130,50));
+    toolbar->setIconSize(QSize(200,77));  // Icon Grüße Toolbar 2,6
     toolbar->addAction(overviewAction);
     toolbar->addAction(sendCoinsAction);
     toolbar->addAction(receiveCoinsAction);
@@ -661,8 +661,9 @@ void BitcoinGUI::setNumBlocks(int count, int nTotalBlocks)
     else
     {
         tooltip = tr("Catching up...") + QString("<br>") + tooltip;
-        labelBlocksIcon->setMovie(syncIconMovie);
-        syncIconMovie->start();
+        labelBlocksIcon->setPixmap(QIcon(":/icons/notsynced").pixmap(STATUSBAR_ICONSIZE, STATUSBAR_ICONSIZE));
+		//labelBlocksIcon->setMovie(syncIconMovie);
+        //syncIconMovie->start();
 
         overviewPage->showOutOfSyncWarning(true);
     }

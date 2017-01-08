@@ -259,7 +259,7 @@ int64_t WalletLevels::GetStakeInterestV7(CTxDestination address, int height)
     {
 
         case Platinum:
-            return 20 * COIN; 	// Platinum 200% annual interest
+            return 50 * COIN; 	// Platinum 200% annual interest
         case Gold:
             return 9 * COIN; // Gold 90% annual interest
         case Silver:

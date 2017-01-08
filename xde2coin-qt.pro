@@ -1,12 +1,13 @@
 # XDE2Coin (XDE2)
 TEMPLATE = app
 TARGET = XDE2Coin-qt
-VERSION = 1.6.9.0
+VERSION = 1.8.0.0
 INCLUDEPATH += src src/json src/qt
 DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
 CONFIG += no_include_pwd
 CONFIG += thread
 CONFIG += static
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 lessThan(QT_MAJOR_VERSION, 5): CONFIG += static
 QMAKE_CXXFLAGS = -fpermissive
