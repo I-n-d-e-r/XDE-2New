@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>750</width>
-    <height>535</height>
+    <height>536</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,7 +22,7 @@ background: transparent;</string>
     <rect>
      <x>60</x>
      <y>80</y>
-     <width>252</width>
+     <width>251</width>
      <height>151</height>
     </rect>
    </property>
@@ -246,42 +246,14 @@ background: transparent;</string>
       </property>
      </widget>
     </item>
-    <item row="4" column="0" colspan="2">
-     <widget class="Line" name="line">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>210</width>
-        <height>4</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>300</width>
-        <height>4</height>
-       </size>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="0">
+    <item row="4" column="0">
      <widget class="QLabel" name="labelTotalText">
       <property name="text">
        <string>Total:</string>
       </property>
      </widget>
     </item>
-    <item row="5" column="1">
+    <item row="4" column="1">
      <widget class="QLabel" name="labelTotal">
       <property name="font">
        <font>
@@ -308,8 +280,8 @@ background: transparent;</string>
   <widget class="QListView" name="listTransactions">
    <property name="geometry">
     <rect>
-     <x>349</x>
-     <y>70</y>
+     <x>350</x>
+     <y>100</y>
      <width>321</width>
      <height>381</height>
     </rect>
@@ -514,7 +486,7 @@ background: transparent;</string>
      <x>0</x>
      <y>0</y>
      <width>757</width>
-     <height>535</height>
+     <height>601</height>
     </rect>
    </property>
    <property name="palette">
@@ -618,8 +590,8 @@ background: transparent;</string>
   <widget class="QWidget" name="verticalLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>470</x>
-     <y>510</y>
+     <x>460</x>
+     <y>480</y>
      <width>281</width>
      <height>23</height>
     </rect>
@@ -633,8 +605,8 @@ background: transparent;</string>
   <widget class="QLabel" name="labelWalletStatus">
    <property name="geometry">
     <rect>
-     <x>460</x>
-     <y>460</y>
+     <x>520</x>
+     <y>510</y>
      <width>221</width>
      <height>21</height>
     </rect>
