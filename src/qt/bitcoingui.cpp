@@ -114,7 +114,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     transactionsPage = new QWidget(this);
     transactionsPage->setContentsMargins(0,0,0,0);
     transactionsPage->setFixedHeight(650); // 524
-    transactionsPage->setFixedWidth(850); //693
+    transactionsPage->setFixedWidth(693); //693 //850
     transactionsPage->setStyleSheet("background-color:black;");
 
     QVBoxLayout *vbox = new QVBoxLayout();
@@ -145,10 +145,10 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     QFrame *frameBlocks = new QFrame();
     frameBlocks->setContentsMargins(0,0,0,0);  // Vorher 0,0,0,0
     frameBlocks->setMinimumWidth(150); //100
-    frameBlocks->setMaximumWidth(150); // 100
+    frameBlocks->setMaximumWidth(170); // 100
 
     QVBoxLayout *frameBlocksLayout = new QVBoxLayout(frameBlocks);
-    frameBlocksLayout->setContentsMargins(44,10,0,0); //28  Linie für Toolbaar (Senden Schloss Icon) 35 //44=horizontal
+    frameBlocksLayout->setContentsMargins(43,10,0,0); //28  Linie für Toolbaar (Senden Schloss Icon) 35 //44=horizontal
     frameBlocksLayout->setSpacing(-1);
     labelEncryptionIcon = new QLabel();
     labelStakingIcon = new QLabel();
@@ -195,7 +195,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     toolbar2->setOrientation(Qt::Vertical);
     toolbar2->setMovable( false );
     toolbar2->setObjectName("toolbar2");
-    toolbar2->setFixedWidth(165);  // Für Balance alt 88  -150
+    toolbar2->setFixedWidth(165);  // Für Balance alt 88  -150 //165
     toolbar2->addWidget(frameBlocks);
     toolbar2->addWidget(progressBarLabel);
     toolbar2->addWidget(progressBar);
@@ -407,7 +407,7 @@ void BitcoinGUI::createToolBars()
 #ifdef Q_OS_MAC
     toolbar->setFixedWidth(200);
 #endif        
-    toolbar->setIconSize(QSize(200,77));  // Icon Grüße Toolbar 2,6
+    toolbar->setIconSize(QSize(200,77));  // Icon Grüße Toolbar 2,6 200/77
     toolbar->addAction(overviewAction);
     toolbar->addAction(sendCoinsAction);
     toolbar->addAction(receiveCoinsAction);
