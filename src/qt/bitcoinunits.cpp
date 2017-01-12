@@ -78,7 +78,7 @@ int BitcoinUnits::decimals(int unit)
 {
     switch(unit)
     {
-    case BTC: return 2; //Vorher 8
+    case BTC: return 8; //Vorher 8
     case mBTC: return 5;
     case uBTC: return 2;
     default: return 0;
@@ -100,7 +100,7 @@ QString BitcoinUnits::format(int unit, qint64 n, bool fPlus)
     QString remainder_str = QString::number(remainder).rightJustified(num_decimals, '0');
 
     // Right-trim excess zeros after the decimal point
-    int nTrim = 5; //Vorher 0
+    int nTrim = 3; //Vorher 0
     for (int i = remainder_str.size()-1; i>=2 && (remainder_str.at(i) == '0'); --i)
         ++nTrim;
     remainder_str.chop(nTrim);
