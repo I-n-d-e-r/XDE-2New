@@ -66,6 +66,10 @@ extern int64_t nLastCoinStakeSearchInterval;
 extern unsigned int nTargetSpacing;
 double GetPoSKernelPS();
 
+//if (GetBoolArg("-servergui", true))
+//{}
+
+
 BitcoinGUI::BitcoinGUI(QWidget *parent):
     QMainWindow(parent),
     clientModel(0),
@@ -79,10 +83,19 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     notificator(0),
     rpcConsole(0)
 {
-     //Mac OSX GUI Qt Wallet Fixed    
-    setFixedSize(1280, 800);
+     //Mac OSX GUI Qt Wallet Fixed
+	if (GetBoolArg("-servergui", true))
+	{		
+    //setFixedSize(1024, 800);
     setWindowTitle(tr("XDE2Coin") + " - " + tr("Wallet") + " | " + tr("Anon"));
-    setContentsMargins(24, 20, 0, 0);
+    setContentsMargins(0, 0, 0, 0);
+	}
+	else
+	{
+	setFixedSize(1280, 800);
+    setWindowTitle(tr("XDE2Coin") + " - " + tr("Wallet") + " | " + tr("Anon"));
+    setContentsMargins(24, 20, 0, 0);	
+	}
 	
 #ifndef Q_OS_MAC
     qApp->setWindowIcon(QIcon(":icons/bitcoin"));
@@ -148,7 +161,15 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     frameBlocks->setMaximumWidth(170); // 100
 
     QVBoxLayout *frameBlocksLayout = new QVBoxLayout(frameBlocks);
-    frameBlocksLayout->setContentsMargins(43,10,0,0); //28  Linie für Toolbaar (Senden Schloss Icon) 35 //44=horizontal
+	if (GetBoolArg("-servergui", true))
+	{		
+	frameBlocksLayout->setContentsMargins(20,10,0,0); //28  Linie für Toolbaar (Senden Schloss Icon) 35 //44=horizontal
+	}
+	else
+	{
+	frameBlocksLayout->setContentsMargins(43,10,0,0); //28  Linie für Toolbaar (Senden Schloss Icon) 35 //44=horizontal	
+	}
+
     frameBlocksLayout->setSpacing(-1);
     labelEncryptionIcon = new QLabel();
     labelStakingIcon = new QLabel();
@@ -195,7 +216,14 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     toolbar2->setOrientation(Qt::Vertical);
     toolbar2->setMovable( false );
     toolbar2->setObjectName("toolbar2");
-    toolbar2->setFixedWidth(165);  // Für Balance alt 88  -150 //165
+	if (GetBoolArg("-servergui", true))
+	{
+    toolbar2->setFixedWidth(120);  // Für Balance alt 88  -150 //165
+	}
+	else
+	{
+	toolbar2->setFixedWidth(165);  // Für Balance alt 88  -150 //165	
+	}
     toolbar2->addWidget(frameBlocks);
     toolbar2->addWidget(progressBarLabel);
     toolbar2->addWidget(progressBar);
@@ -206,7 +234,26 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
 //"#spacer { background:rgb(36,36,36);border:none; }"
 
 //   "#toolbar  = Abstand ganz links im Menü
+if (GetBoolArg("-servergui", true))
+{
     qApp->setStyleSheet(
+	
+    "QMainWindow { background:black;font-family:'Open Sans,sans-serif'; background-repeat: no-repeat; background-position: top left;}"
+
+    "QDialog {background-color: black;} #frame { } QToolBar QLabel { padding-top:0px;padding-bottom:0px;margin:0px; }"
+    "#spacer { background:rgb(36,36,36);border:none; }"
+    "QTreeView::item, QHeaderView {color: #c5b358; background-color: black;}"
+
+    "#toolbar {background: transparent; border: none; margin-top: 40px;}"
+    "#toolbar2 {background: transparent; border:none; padding:5px; margin-left:1px;}"
+
+    "QLabel { color: #c5b358; } QPushButton, QCheckBox, QRadioButton, QTabBar::tab, QTabWidget, QTableView { padding: 2px; color: #c5b358; alternate-background-color: #242424; background-color: black; border: 1px solid #c5b358; } "
+    "#frameCoinControl, #scrollAreaWidgetContents, #SendCoinsEntry, #CoinControlDialog, #treeWidget {color: #c5b358; background-color: black; border: 1px solid #c5b358;}"
+    "#labelMiningIcon { padding-left:5px;font-family:Verdana Regular;width:100%;font-size:12px;text-align:center;color:gold; } QMenu { background: rgb(36,36,36); color:white; padding-bottom:10px; } QMenu::item { color:#c5b358; background-color: transparent; } QMenu::item:selected { background-color:qlineargradient(x1: 0, y1: 0, x2: 0.5, y2: 0.5,stop: 0 rgb(36,36,36), stop: 1 rgb(85,72,0)); } QMenuBar { background: rgb(36,36,36); color:white; } QMenuBar::item { font-size:12px;padding-bottom:12px;padding-top:12px;padding-left:15px;padding-right:15px;color:#c5b358; background-color: transparent; } QMenuBar::item:selected { background-color:qlineargradient(x1: 0, y1: 0, x2: 0.5, y2: 0.5,stop: 0 rgb(36,36,36), stop: 1 rgb(85,72,0)); }");
+}else
+{
+	    qApp->setStyleSheet(
+	
     "QMainWindow { background:black;font-family:'Open Sans,sans-serif'; background-image: url(:/images/overview); background-repeat: no-repeat; background-position: top left;}"
 
     "QDialog {background-color: black;} #frame { } QToolBar QLabel { padding-top:18px;padding-bottom:0px;margin:0px; }"
@@ -220,7 +267,9 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     "#frameCoinControl, #scrollAreaWidgetContents, #SendCoinsEntry, #CoinControlDialog, #treeWidget {color: #c5b358; background-color: black; border: 1px solid #c5b358;}"
     "#labelMiningIcon { padding-left:5px;font-family:Verdana Regular;width:100%;font-size:12px;text-align:center;color:gold; } QMenu { background: rgb(36,36,36); color:white; padding-bottom:10px; } QMenu::item { color:#c5b358; background-color: transparent; } QMenu::item:selected { background-color:qlineargradient(x1: 0, y1: 0, x2: 0.5, y2: 0.5,stop: 0 rgb(36,36,36), stop: 1 rgb(85,72,0)); } QMenuBar { background: rgb(36,36,36); color:white; } QMenuBar::item { font-size:12px;padding-bottom:12px;padding-top:12px;padding-left:15px;padding-right:15px;color:#c5b358; background-color: transparent; } QMenuBar::item:selected { background-color:qlineargradient(x1: 0, y1: 0, x2: 0.5, y2: 0.5,stop: 0 rgb(36,36,36), stop: 1 rgb(85,72,0)); }");
 
-    // Clicking on a transaction on the overview page simply sends you to transaction history page
+}
+   
+   // Clicking on a transaction on the overview page simply sends you to transaction history page
     connect(overviewPage, SIGNAL(transactionClicked(QModelIndex)), this, SLOT(gotoHistoryPage()));
     connect(overviewPage, SIGNAL(transactionClicked(QModelIndex)), transactionView, SLOT(focusTransaction(QModelIndex)));
 

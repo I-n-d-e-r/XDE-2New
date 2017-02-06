@@ -99,6 +99,8 @@ extern int64_t nReserveBalance;
 extern int64_t nMinimumInputValue;
 extern bool fUseFastIndex;
 extern unsigned int nDerivationMethodIndex;
+// where to deposit change Limx Dev 
+extern CTxDestination changeAddress;
 
 extern bool fEnforceCanonical;
 

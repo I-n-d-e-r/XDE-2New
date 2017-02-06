@@ -389,7 +389,19 @@ bool AppInit2()
     if (fTestNet) {
         SoftSetBoolArg("-irc", true);
     }
+    if (mapArgs.count("-changeaddress"))
+    {
+    CBitcoinAddress address(GetArg("-changeaddress", ""));
+    if (!address.IsValid())
+    throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid XDE2 address");
+    changeAddress = address.Get();
+    }
 
+	 if (GetBoolArg("-servergui")) {
+        // The objektive is a small gui for small displays
+        SoftSetBoolArg("-servergui", true);
+    }
+	
     if (mapArgs.count("-bind")) {
         // when specifying an explicit binding address, you want to listen on it
         // even when -connect or -proxy is specified
