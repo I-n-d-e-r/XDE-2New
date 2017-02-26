@@ -271,6 +271,7 @@ std::string HelpMessage()
         "  -mininput=<amt>        " + _("When creating transactions, ignore inputs with value less than this (default: 0.01)") + "\n" +
 #ifdef QT_GUI
         "  -server                " + _("Accept command line and JSON-RPC commands") + "\n" +
+		"  -servergui             " + _("Start the wallet in a small window") + "\n" +
 #endif
 #if !defined(WIN32) && !defined(QT_GUI)
         "  -daemon                " + _("Run in the background as a daemon and accept commands") + "\n" +
@@ -396,11 +397,15 @@ bool AppInit2()
     throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid XDE2 address");
     changeAddress = address.Get();
     }
-
+	
+	if (!GetBoolArg("-servergui")) {
+	SoftSetBoolArg("-servergui", false);
+	}
+	
 	 if (GetBoolArg("-servergui")) {
         // The objektive is a small gui for small displays
         SoftSetBoolArg("-servergui", true);
-    }
+	 }
 	
     if (mapArgs.count("-bind")) {
         // when specifying an explicit binding address, you want to listen on it
